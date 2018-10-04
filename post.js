@@ -15,7 +15,6 @@ function formatAPIObjects(object){
   Object.keys(object).forEach( (arrayItem,index) => {
     // no null values allowed by API for these properties
     if(object.default[index].email.endsWith("m") && object.default[index].email != ""){
-       // && object.default[index].homePhone != "" && object.default[index].workPhone != ""
       // prepare API OBJ
      var API_OBJ = {
         "name": null,
