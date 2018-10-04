@@ -24,5 +24,5 @@ To convert csv to json:
 ##### run ``jq -R -s -f -j csv2json.jq data.csv > output.json``
 &nbsp;
 ##### Next
-To post object(s) to Kustomer API:
+To post object(s) to API:
 ###### run ``npm run post ``
