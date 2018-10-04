@@ -14,10 +14,10 @@ try{
 function formatAPIObjects(object){
   Object.keys(object).forEach( (arrayItem,index) => {
     // no null values allowed by API for these properties
-    if(object.default[index].email.endsWith("m") && object.default[index].email != "" && object.default[index].homePhone != "" && object.default[index].workPhone != "" ){
-
+    if(object.default[index].email.endsWith("m") && object.default[index].email != ""){
+       // && object.default[index].homePhone != "" && object.default[index].workPhone != ""
       // prepare API OBJ
-     const API_OBJ = {
+     var API_OBJ = {
         "name": null,
         "emails": [
          {
@@ -39,11 +39,13 @@ function formatAPIObjects(object){
   //Format for API
     API_OBJ.name = object.default[index].firstName + " " + object.default[index].lastName;
     API_OBJ.emails[0].email = object.default[index].email
-    API_OBJ.phones[0].phone = object.default[index].homePhone.replace(/\./g, "-")
-    API_OBJ.phones[1].phone = object.default[index].workPhone.replace(/\./g, "-")
-    let data = JSON.stringify(API_OBJ)
+    let homePhone = object.default[index].homePhone.replace(/\./g, "-") || "000-000-0000"
+    let workPhone = object.default[index].workPhone.replace(/\./g, "-") || "000-000-0000"
+   API_OBJ.phones[0].phone = homePhone
+    API_OBJ.phones[1].phone = workPhone
+    var data = JSON.stringify(API_OBJ)
 
-
+    // console.log(data)
    // Post data object
    postObjectToAPI(data);
  }
