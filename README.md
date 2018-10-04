@@ -1,5 +1,4 @@
-# Kustomer Coding Challenge
-&nbsp;
+
 ## Setup Instructions
 &nbsp;
 ##### Download zip file
