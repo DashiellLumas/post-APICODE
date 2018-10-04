@@ -46,7 +46,8 @@ function formatAPIObjects(object){
 
    // Post data object
    postObjectToAPI(data);
-
+ }
+})
 }
 
 
@@ -78,6 +79,5 @@ let req = http.request(options, (res) => {
 
 req.write(data);
 req.end();
-}
- })
+
 }
