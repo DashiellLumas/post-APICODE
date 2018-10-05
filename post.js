@@ -6,7 +6,21 @@ const API_PATH = process.env.API_PATH;
 
 import * as obj from './output.json';
 
+function formatDate(obj){
+  for(let i  = 0; i < obj.default.length; i++){
+    if(obj[i].birthday && obj[i].birthday.endsWith(")")){
+    let formattedDate = new Date(obj[i].birthday)
+    let pushedDate = formattedDate.toISOString();
+    obj[i].birthday = pushedDate;
+  } else if(obj[i].birthday == ""){
+    delete obj[i].birthday
+  }
+  }
+}
+formatDate(obj)
+
 try{
+  formatDate(obj)
   formatAPIObjects(obj);
 }catch(error){
 }
@@ -16,7 +30,7 @@ function formatAPIObjects(object){
     // no null values allowed by API for these properties
     if(object.default[index].email.endsWith("m") && object.default[index].email != ""){
       // prepare API OBJ
-     var API_OBJ = {
+     let API_OBJ = {
         "name": null,
         "emails": [
          {
@@ -33,18 +47,21 @@ function formatAPIObjects(object){
            "type": "work",
            "phone": null
          }
-        ]
+       ],
+        "birthdayAt":null
         }
   //Format for API
-    API_OBJ.name = object.default[index].firstName + " " + object.default[index].lastName;
-    API_OBJ.emails[0].email = object.default[index].email
-    let homePhone = object.default[index].homePhone.replace(/\./g, "-") || "000-000-0000"
-    let workPhone = object.default[index].workPhone.replace(/\./g, "-") || "000-000-0000"
-   API_OBJ.phones[0].phone = homePhone
-    API_OBJ.phones[1].phone = workPhone
-    var data = JSON.stringify(API_OBJ)
 
-    // console.log(data)
+    API_OBJ.name = object.default[index].firstName + " " + object.default[index].lastName;
+    API_OBJ.emails[0].email = object.default[index].email;
+    let homePhone = object.default[index].homePhone.replace(/\./g, "-") || "000-000-0000";
+    let workPhone = object.default[index].workPhone.replace(/\./g, "-") || "000-000-0000";
+    API_OBJ.birthdayAt = object.default[index].birthday || "2016-12-24T18:45:36.000Z"
+   API_OBJ.phones[0].phone = homePhone;
+    API_OBJ.phones[1].phone = workPhone;
+    let data = JSON.stringify(API_OBJ)
+
+    console.log(data)
    // Post data object
    postObjectToAPI(data);
  }
